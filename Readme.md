@@ -1,6 +1,6 @@
 # Event Certificate Generator
 
-This project provides an automated solution for generating and distributing certificates for event participants, this was created as I needed to distribute 1500 certificates to the participants of tinkherhack so all functions will a bit customised for this specific need, modify it and enjoy!. It is designed to be hosted on GitHub Pages, enabling easy access and distribution.
+This project provides an automated solution for generating and distributing certificates for event participants, born out of the necessity to distribute a whopping 1,500 certificates for TinkerHack participants, this setup is finely tuned for mass distribution with a personal touch. Customize it to your heart's content and make it your own. It is designed to be hosted on GitHub Pages, enabling easy access and distribution.
 
 ## Features
 
