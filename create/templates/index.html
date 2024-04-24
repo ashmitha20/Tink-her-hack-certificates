@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Download</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        header {
+            width: 100%;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        .logo {
+            height: 25px;
+            margin-right: 20px;
+        }
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+        select, button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 500;
+            width: 100%;
+        }
+        button {
+            background-color: #000;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #333;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            const venues = fetch("{{ url_for('static', filename='venue.json') }}").then(response => response.json());
+
+            $('#venue-select').change(async (e) => {
+                const venue = (await venues)[e.target.value];
+                const options = venue.map(team => `<option value="${team}">${team}</option>`).join('');
+                $('#team-select').html(options);
+            });
+
+            $('#download-btn').click(function() {
+                const venue = $('#venue-select').val();
+                const team = $('#team-select').val();
+                if (venue && team) {
+                    window.location.href = `/download/${venue}/${team}`;
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Company Logo" class="logo">
+    </header>
+    <div class="container">
+         <h1>Tink-her-hack Certificates</h1>
+        <select id="venue-select">
+            <option value="">Select a Venue</option>
+            {% for venue in venues %}
+                <option value="{{ venue }}">{{ venue }}</option>
+            {% endfor %}
+        </select>
+        <select id="team-select">
+            <option value="">Select a Team</option>
+        </select>
+        <button id="download-btn">Download</button>
+    </div>
+</body>
+</html>
