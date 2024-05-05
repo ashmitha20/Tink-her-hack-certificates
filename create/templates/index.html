@@ -68,7 +68,7 @@
 
             $('#venue-select').change(async (e) => {
                 const venue = (await venues)[e.target.value];
-                const options = venue.map(team => `<option value="${team}">${team}</option>`).join('');
+                const options = venue.map(team => `<option value="${team.name}">${team.name}</option>`).join('');
                 $('#team-select').html(options);
             });
 
@@ -91,11 +91,11 @@
         <select id="venue-select">
             <option value="">Select a Venue</option>
             {% for venue in venues %}
-                <option value="{{ venue }}">{{ venue }}</option>
+                <option value="{{ loop.index - 1 }}">{{ venue.name }}</option>
             {% endfor %}
         </select>
         <select id="team-select">
-            <option value="">Select a Team</option>
+            <option value="">Select a Name</option>
         </select>
         <button id="download-btn">Download</button>
     </div>
